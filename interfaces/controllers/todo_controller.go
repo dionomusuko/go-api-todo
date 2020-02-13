@@ -1,12 +1,13 @@
 package controllers
 
 import (
+	"github.com/dionomusuko/todos-go/interfaces/database"
 	"github.com/labstack/echo"
 	"strconv"
 )
 
 type TodoController struct {
-	Interactor Todocase.TodoInteractor
+	Interactor usecase.TodoInteractor
 }
 
 func NewTodoController(sqlHandler database.SqlHandler) *TodoController {
