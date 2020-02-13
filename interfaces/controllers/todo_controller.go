@@ -1,6 +1,9 @@
 package controllers
 
-import "strconv"
+import (
+	"github.com/labstack/echo"
+	"strconv"
+)
 
 type TodoController struct {
 	Interactor Todocase.TodoInteractor
@@ -16,32 +19,33 @@ func NewTodoController(sqlHandler database.SqlHandler) *TodoController {
 	}
 }
 
-func (controller *TodoController) Create(c Context) {
+func (controller *TodoController) Create(c echo.Context) (err error) {
 	u := domain.Todo{}
 	c.Bind(&u)
-	err := controller.Interactor.Add(u)
+	todo, err := controller.Interactor.Add(u)
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(201)
+	c.JSON(201, todo)
+	return
 }
 
-func (controller *TodoController) Index(c Context) {
-	Todos, err := controller.Interactor.Todos()
+func (controller *TodoController) Index(c echo.Context) {
+	todos, err := controller.Interactor.Todos()
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(200, Todos)
+	c.JSON(200, todos)
 }
 
-func (controller *TodoController) Show(c Context) {
+func (controller *TodoController) Show(c echo.Context) {
 	id, _ := strconv.Atoi(c.Param("id"))
-	Todo, err := controller.Interactor.TodoById(id)
+	todo, err := controller.Interactor.TodoById(id)
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
-	c.JSON(200, Todo)
+	c.JSON(200, todo)
 }
