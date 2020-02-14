@@ -8,8 +8,8 @@ type TodoInteractor struct {
 	TodoRepository TodoRepository
 }
 
-func (interactor *TodoInteractor) Add(u domain.Todo) (err error) {
-	_, err = interactor.TodoRepository.Store(u)
+func (interactor *TodoInteractor) Add(u domain.Todo) (todo domain.Todo, err error) {
+	todo, err = interactor.TodoRepository.Store(u)
 	return
 }
 
@@ -18,7 +18,7 @@ func (interactor *TodoInteractor) Todos() (todos domain.Todos, err error) {
 	return
 }
 
-func (interactor *TodoInteractor) TodoById(identifier int) (todo domain.Todo, err error) {
-	todo, err = interactor.TodoRepository.FindById(identifier)
+func (interactor *TodoInteractor) TodoById(id int) (todo domain.Todo, err error) {
+	todo, err = interactor.TodoRepository.FindById(id)
 	return
 }

@@ -34,16 +34,17 @@ func (controller *TodoController) Create(c echo.Context) (err error) {
 	return
 }
 
-func (controller *TodoController) Index(c echo.Context) {
+func (controller *TodoController) Index(c echo.Context) (err error) {
 	todos, err := controller.Interactor.Todos()
 	if err != nil {
 		c.JSON(500, NewError(err))
 		return
 	}
 	c.JSON(200, todos)
+	return
 }
 
-func (controller *TodoController) Show(c echo.Context) {
+func (controller *TodoController) Show(c echo.Context) (err error) {
 	id, _ := strconv.Atoi(c.Param("id"))
 	todo, err := controller.Interactor.TodoById(id)
 	if err != nil {
@@ -51,4 +52,5 @@ func (controller *TodoController) Show(c echo.Context) {
 		return
 	}
 	c.JSON(200, todo)
+	return
 }

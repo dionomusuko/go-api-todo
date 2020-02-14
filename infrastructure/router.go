@@ -7,15 +7,17 @@ import (
 )
 
 func Init() {
-	echo.New()
+	e := echo.New()
 
-	todoController := controllers.NewTodoiController(NewSqlandler())
+	todoController := controllers.NewTodoController(NewSqlHandler())
 
 	// Middleware
-	e.Todo(middleware.Logger())
-	e.Todo(middleware.Recover())
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	e.GET("/", hello)
 	e.GET("/todos", func(c echo.Context) error { return todoController.Index(c) })
+	e.GET("/todos/:id", func(c echo.Context) error { return todoController.Show(c) })
+	e.POST("/create", func(c echo.Context) error { return todoController.Create(c) })
 
+	e.Logger.Fatal(e.Start(":1323"))
 }
