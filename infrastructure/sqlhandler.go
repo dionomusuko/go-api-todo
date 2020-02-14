@@ -1,13 +1,18 @@
 package infrastructure
 
-import "github.com/jinzhu/gorm"
+import (
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+
+	"github.com/dionomusuko/todos-go/interfaces/database"
+)
 
 type SqlHandler struct {
 	Conn *gorm.DB
 }
 
 func NewSqlHandler() database.SqlHandler {
-	conn, err := gorm.Open("mysql", "go_user:Gophekunsuko4;@/go_db?charset=utf8&parseTime=True&loc=Local")
+	conn, err := gorm.Open("mysql", "go_user:Gophekunsuko4;@tcp(127.0.0.1:3306)/go_db?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		panic(err.Error())
 	}
