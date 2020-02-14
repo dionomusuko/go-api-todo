@@ -1,5 +1,7 @@
 package database
 
+import "github.com/dionomusuko/todos-go/domain"
+
 type TodoRepository struct {
 	SqlHandler
 }
@@ -18,7 +20,7 @@ func (repo *TodoRepository) FindAll() (todos domain.Todos, err error) {
 	return
 }
 
-func (repo *TodoRepository) Store(u domain.Todo) (user domain.Todo, err error) {
+func (repo *TodoRepository) Store(u domain.Todo) (todo domain.Todo, err error) {
 	if err = repo.Create(&u).Error; err != nil {
 		return
 	}

@@ -13,12 +13,12 @@ func (interactor *TodoInteractor) Add(u domain.Todo) (err error) {
 	return
 }
 
-func (interactor *TodoInteractor) Todos() (todo Todo.domain, err error) {
-	todo, err = interactor.TodoRepository.FindAll()
+func (interactor *TodoInteractor) Todos() (todos domain.Todos, err error) {
+	todos, err = interactor.TodoRepository.FindAll()
 	return
 }
 
-func (interactor *TodoInteractor) TodoById(identifier int) (todo domein.Todo, err error) {
+func (interactor *TodoInteractor) TodoById(identifier int) (todo domain.Todo, err error) {
 	todo, err = interactor.TodoRepository.FindById(identifier)
 	return
 }

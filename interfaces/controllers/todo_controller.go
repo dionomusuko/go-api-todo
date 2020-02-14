@@ -1,7 +1,9 @@
 package controllers
 
 import (
+	"github.com/dionomusuko/todos-go/domain"
 	"github.com/dionomusuko/todos-go/interfaces/database"
+	"github.com/dionomusuko/todos-go/usecase"
 	"github.com/labstack/echo"
 	"strconv"
 )
